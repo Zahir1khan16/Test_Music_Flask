@@ -1,0 +1,237 @@
+:root {
+    --bg-color: #050000;
+    --text-color: #ffffff;
+    --primary-red: #c90000;
+    --dark-red: #5a0000;
+    --glow-red: #ff0000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide the dripping blood overflow */
+    position: relative;
+}
+
+/* Dripping Blood Animation */
+.blood-drip, .blood-drip-2, .blood-drip-3 {
+    position: absolute;
+    top: 0;
+    width: 20px;
+    height: 100px;
+    background-color: var(--primary-red);
+    border-radius: 0 0 10px 10px;
+    animation: drip 4s infinite cubic-bezier(1,0,.8,1);
+    box-shadow: 0 0 10px var(--dark-red);
+    z-index: 10;
+}
+
+.blood-drip {
+    left: 20%;
+    animation-duration: 5s;
+    animation-delay: 1s;
+}
+
+.blood-drip-2 {
+    left: 50%;
+    width: 30px;
+    animation-duration: 6s;
+    animation-delay: 0s;
+}
+
+.blood-drip-3 {
+    left: 80%;
+    animation-duration: 4.5s;
+    animation-delay: 2s;
+}
+
+@keyframes drip {
+    0% { height: 0; opacity: 1; }
+    80% { height: 150px; opacity: 1; }
+    100% { height: 180px; opacity: 0; }
+}
+
+.vamp-container {
+    background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid var(--dark-red);
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    z-index: 20;
+    position: relative;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+.vamp-title {
+    font-family: 'Creepster', cursive;
+    font-size: 2.5rem;
+    color: var(--primary-red);
+    text-shadow: 0 0 10px var(--glow-red);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.player-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.artwork-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 20px rgba(201, 0, 0, 0.4);
+    position: relative;
+    border: 2px solid var(--dark-red);
+}
+
+#track-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.vinyl-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(transparent 50%, rgba(200,0,0,0.3) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.playing #track-art {
+    transform: scale(1.05);
+}
+
+.playing .vinyl-overlay {
+    opacity: 1;
+    animation: pulse-red 2s infinite alternate;
+}
+
+@keyframes pulse-red {
+    from { box-shadow: inset 0 0 10px var(--dark-red); }
+    to { box-shadow: inset 0 0 30px var(--glow-red); }
+}
+
+.track-info {
+    margin-bottom: 1.5rem;
+}
+
+#track-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    min-height: 1.5em;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+#track-status {
+    font-size: 0.8rem;
+    color: #aaa;
+    min-height: 1em;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: var(--primary-red);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-btn:disabled {
+    color: #333;
+    cursor: not-allowed;
+    text-shadow: none;
+}
+
+.control-btn:not(:disabled):hover {
+    color: var(--glow-red);
+    text-shadow: 0 0 10px var(--glow-red);
+    transform: scale(1.1);
+}
+
+.play-btn {
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(201, 0, 0, 0.1);
+    border: 2px solid var(--primary-red);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-btn:not(:disabled):hover {
+    background: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 200px;
+}
+
+#volume-slider {
+    flex-grow: 1;
+    -webkit-appearance: none;
+    background: #333;
+    height: 4px;
+    border-radius: 2px;
+    outline: none;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-red);
+    cursor: pointer;
+    box-shadow: 0 0 5px var(--glow-red);
+}
