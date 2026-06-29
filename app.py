@@ -34,6 +34,11 @@ def random_song():
         # Pick a random song title
         song_query = random.choice(CARTI_SONGS)
         
+        # Append 'audio' to avoid official videos that disable embedding
+        search_query = song_query
+        if "(Leak)" not in song_query:
+            search_query += " audio"
+        
         # Search YouTube using yt-dlp
         ydl_opts = {
             'default_search': 'ytsearch',
@@ -42,7 +47,7 @@ def random_song():
             'extract_flat': True,
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(f"ytsearch1:{song_query}", download=False)
+            info = ydl.extract_info(f"ytsearch1:{search_query}", download=False)
             
             if 'entries' in info and len(info['entries']) > 0:
                 entry = info['entries'][0]
